@@ -173,8 +173,16 @@ function draw(){
 function loop(now){if(state!=='game')return;const dt=Math.min(.034,(now-lastTime)/1000);lastTime=now;timeLeft-=dt;if(timeLeft<=0){timeLeft=0;timeValue.textContent='0';draw();endGame();return}timeValue.textContent=Math.ceil(timeLeft);update(dt);draw();raf=requestAnimationFrame(loop)}
 function setTarget(clientX){const r=stage.getBoundingClientRect();const x=(clientX-r.left)/r.width*1080;player.targetX=Math.max(player.w/2+45,Math.min(1080-player.w/2-45,x))}
 stage.addEventListener('pointerdown',e=>{if(state==='game'){stage.setPointerCapture?.(e.pointerId);setTarget(e.clientX)}});stage.addEventListener('pointermove',e=>{if(state==='game'&&e.buttons)setTarget(e.clientX)});stage.addEventListener('touchmove',e=>e.preventDefault(),{passive:false});
+function clearInterfaceSelection(){
+  const selection=window.getSelection?.();
+  if(selection)selection.removeAllRanges();
+  const active=document.activeElement;
+  if(active&&typeof active.blur==='function')active.blur();
+}
+
 function resetToStart(){
   // Interrompe completamente a partida antes de reexibir a abertura.
+  clearInterfaceSelection();
   state='resetting';
   cancelAnimationFrame(raf);
   raf=0;
@@ -193,8 +201,14 @@ function resetToStart(){
   comboMessage.classList.remove('show');
   ctx.clearRect(0,0,canvas.width,canvas.height);
   show('start');
+  // O clique que retorna à abertura pode manter um Range ativo no Chrome.
+  // Limpa novamente após a atualização visual da tela.
+  requestAnimationFrame(clearInterfaceSelection);
+  setTimeout(clearInterfaceSelection,0);
 }
 
+stage.addEventListener('selectstart',event=>event.preventDefault());
+stage.addEventListener('dragstart',event=>event.preventDefault());
 document.getElementById('startButton').addEventListener('click',startGame);
 document.getElementById('restartButton').addEventListener('click',resetToStart);
 show('start');
