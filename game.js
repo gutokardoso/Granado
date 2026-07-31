@@ -71,7 +71,7 @@ function seedGarden(){
 }
 seedGarden();
 async function startGame(){await assetsPromise;score=0;timeLeft=30;lastTime=performance.now();spawnTimer=0;items=[];particles=[];combo=0;comboUntil=0;player.x=player.targetX=540;scoreValue.textContent='0';timeValue.textContent='30';progressBar.style.width='0%';show('game');cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)}
-function endGame(){cancelAnimationFrame(raf);finalScore.textContent=score.toLocaleString('pt-BR');document.getElementById('endMessage').textContent='Acesse nosso QR Code e confira a supresa que temos para você!';show('end')}
+function endGame(){cancelAnimationFrame(raf);finalScore.textContent=score.toLocaleString('pt-BR');document.getElementById('endMessage').innerHTML='Acesse nosso QR Code e confira<br>a surpresa que temos para você!';show('end')}
 function spawnItem(){const roll=Math.random();let type=roll<.57?'banana':roll<.77?'flower':roll<.93?'spark':'leaf';const size=type==='banana'?100:type==='leaf'?105:type==='flower'?84:58;items.push({type,x:80+Math.random()*920,y:-130,size,speed:340+Math.random()*160,rot:Math.random()*6.28,spin:(Math.random()-.5)*1.5})}
 function pointsFor(type){return type==='banana'?100:type==='flower'?250:type==='leaf'?150:50}
 function collect(item){
