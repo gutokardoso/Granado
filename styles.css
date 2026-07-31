@@ -1,0 +1,106 @@
+:root{--gold:#d5b15f;--cream:#f7f0d8;--deep:#123b2a;--green:#1e5a3d;--lime:#92b84f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#071b14;font-family:Georgia,'Times New Roman',serif;touch-action:none}
+body{display:flex;align-items:center;justify-content:center}
+#stageViewport{position:relative;flex:0 0 auto;overflow:visible}
+#stage{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;isolation:isolate;background:#0b3c1b url('assets/start/fundo-inicial.png') center/cover no-repeat;box-shadow:0 0 70px #0009;transform-origin:top left;will-change:transform}
+#stage:after{content:"";position:absolute;inset:0;z-index:50;pointer-events:none;box-shadow:inset 0 0 110px #00150dcc,inset 0 0 0 2px #e2c87822}
+canvas{position:absolute;inset:0;width:100%;height:100%;z-index:12}
+.screen{position:absolute;inset:0;z-index:20;display:none;overflow:hidden}.screen.active{display:block}
+.ambient{position:absolute;border-radius:50%;filter:blur(80px);opacity:.33;z-index:1}.ambient-a{width:52%;height:30%;left:-15%;top:12%;background:#9fc55c}.ambient-b{width:55%;height:30%;right:-18%;bottom:15%;background:#d8b858}
+.sun-ray{position:absolute;z-index:2;width:8%;height:105%;top:-10%;background:linear-gradient(#fff7c95e,transparent 70%);filter:blur(16px);transform:rotate(18deg);transform-origin:top;opacity:.33}.ray-a{left:18%}.ray-b{right:23%;transform:rotate(-17deg);opacity:.2}
+.garden-layer{position:absolute;inset:0;pointer-events:none}.garden-back{z-index:3;opacity:.48}.garden-mid{z-index:9}.garden-front{z-index:10}
+.leaf{position:absolute;width:24%;aspect-ratio:664/1220;background:url('assets/start/folha.png') center/contain no-repeat;filter:drop-shadow(0 20px 26px #00170b88);transform-origin:50% 90%;animation:sway 5.8s ease-in-out infinite alternate;will-change:transform}.leaf:after{content:none}
+.flower{position:absolute;width:5.5%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#d9b55a 0 14%,#fff8e2 15% 33%,transparent 35%);filter:drop-shadow(0 5px 8px #0006);animation:float 4s ease-in-out infinite alternate}
+.banana-decoration{position:absolute;width:11%;height:5%;border:11px solid #e2c151;border-left-color:transparent;border-top-color:transparent;border-radius:0 0 90% 0;transform:rotate(18deg);filter:drop-shadow(0 8px 10px #0007)}
+@keyframes sway{from{transform:rotate(var(--leaf-rotation,0deg)) scale(var(--leaf-scale,1)) translateY(0)}to{transform:rotate(calc(var(--leaf-rotation,0deg) + 4deg)) scale(var(--leaf-scale,1)) translateY(10px)}}@keyframes float{to{transform:translateY(-12px) rotate(8deg)}}
+.floor-glow{position:absolute;z-index:8;left:12%;right:12%;bottom:4%;height:15%;border-radius:50%;background:radial-gradient(ellipse,#f0cf7266 0,transparent 68%);filter:blur(18px)}
+.brand-lockup{position:absolute;top:5.4%;left:0;right:0;text-align:center;color:var(--cream);letter-spacing:.12em}.brand{font-size:45.36px;font-weight:700}.city{font:500 14.04px Arial,sans-serif;letter-spacing:.38em;margin-top:.35em}.brand-lockup.compact{top:4%}
+.hero-copy{position:absolute;left:8%;right:8%;top:15%;text-align:center;color:var(--cream)}.eyebrow{font:700 16.74px Arial,sans-serif;letter-spacing:.22em;color:#edd788}.hero-copy h1,.end-copy h2{font-size:95.04px;line-height:.82;margin:.14em 0 .25em;font-weight:500;text-shadow:0 8px 30px #001c12}.hero-copy>p:last-child{font-size:25.38px;line-height:1.4;max-width:75%;margin:auto;color:#f8f0d7d9}
+.hero-product{position:absolute;left:25%;right:25%;top:41%;height:39%;display:flex;justify-content:center;align-items:flex-end}.bottle{position:relative;z-index:2}.bottle.large{width:69%;height:79%}.bottle.medium{width:43%;height:100%}.cap{position:absolute;z-index:4;width:54%;height:18%;left:23%;top:0;border-radius:12% 12% 6% 6%;background:linear-gradient(90deg,#85672d,#f5d77b 20%,#9f7a32 50%,#f5dc86 78%,#745522);box-shadow:0 10px 16px #0007,inset 0 4px 5px #fff7}.cap:after{content:"";position:absolute;left:12%;right:12%;bottom:-22%;height:32%;background:repeating-linear-gradient(90deg,#7a5b24 0 4%,#d7b960 5% 8%);border-radius:0 0 20% 20%}.cap span{position:absolute;left:10%;right:10%;top:12%;height:16%;border-top:2px solid #fff9;border-radius:50%}
+.glass{position:absolute;left:5%;right:5%;bottom:0;height:84%;border:3px solid #fff7;border-radius:17% 17% 12% 12%;background:linear-gradient(100deg,#fff9 0,#dceacb33 18%,#fff1 38%,#fff5 62%,#bcd29844 80%,#fff8);box-shadow:inset 13px 0 20px #fff4,inset -12px 0 18px #456b383b,0 25px 30px #00160ca6;overflow:hidden}.glass:after{content:"";position:absolute;inset:4% 8% auto;height:38%;border-radius:40%;background:linear-gradient(90deg,#fff8,transparent 25%)}.liquid{position:absolute;left:3%;right:3%;bottom:2%;height:49%;border-radius:0 0 12% 12%;background:linear-gradient(#d6dd7366,#c6bd4da8);box-shadow:inset 0 10px 12px #fff4}.liquid.full{height:72%}.label{position:absolute;z-index:3;left:12%;right:12%;top:31%;height:48%;padding:8% 4% 4%;text-align:center;color:#f9f3d9;background:linear-gradient(150deg,#416e38,#64813e);border:2px solid #e4c879;box-shadow:inset 0 0 0 5px #274c2f}.label strong{display:block;font:700 15.12px Arial,sans-serif;letter-spacing:.12em}.label small{display:block;font:500 5.62px Arial,sans-serif;letter-spacing:.15em;margin-top:2%}.label b{display:block;font-size:14.58px;line-height:1.05;margin-top:12%}.label em{display:block;font:500 5.83px Arial,sans-serif;letter-spacing:.08em;margin-top:11%}.product-shadow{position:absolute;bottom:-2%;width:100%;height:7%;border-radius:50%;background:#00120bbd;filter:blur(13px)}
+.primary-button{position:absolute;left:15%;right:15%;bottom:8.5%;height:6.2%;border:1px solid #f3dd9f;background:linear-gradient(90deg,#c8a44e,#eed58b,#b88f38);color:#143923;font:700 18.36px Arial,sans-serif;letter-spacing:.16em;border-radius:999px;box-shadow:0 13px 32px #0008,inset 0 2px 2px #fff8;cursor:pointer}.primary-button:active{transform:scale(.985)}.instruction{position:absolute;left:0;right:0;bottom:4.2%;text-align:center;color:#f8efd0aa;font:500 12.96px Arial,sans-serif;letter-spacing:.1em}
+.hud{position:absolute;z-index:25;left:5.8%;right:5.8%;top:3.8%;height:8%;display:flex;align-items:center;justify-content:space-between;color:var(--cream);border-bottom:1px solid #f4dc8d55}.hud-item{width:28%;font-family:Arial,sans-serif}.hud-item.right{text-align:right}.hud-item span{display:block;font-size:10.8px;letter-spacing:.2em;color:#ead58d}.hud-item strong{font-size:45.36px;font-weight:400}.hud-brand{text-align:center}.hud-brand b{display:block;font-size:45.36px;line-height:1;letter-spacing:.12em}.hud-brand small{font:500 7.78px Arial,sans-serif;letter-spacing:.2em;color:#ead58d}.progress-wrap{position:absolute;z-index:25;left:8%;right:8%;bottom:4%;display:flex;align-items:center;gap:3%;color:#efdda1;font:700 10.8px Arial,sans-serif;letter-spacing:.15em}.progress-track{flex:1;height:7px;background:#fff2;border-radius:20px;overflow:hidden}.progress-track div{width:0;height:100%;background:linear-gradient(90deg,#cda849,#f2dc8b);transition:width .35s}.combo-message{position:absolute;z-index:28;left:0;right:0;top:17%;text-align:center;color:#ffe79e;font-size:45.36px;font-style:italic;text-shadow:0 4px 20px #000;opacity:0;transform:scale(.8);transition:.25s}.combo-message.show{opacity:1;transform:scale(1)}
+.end-copy{position:absolute;left:7%;right:7%;top:13%;text-align:center;color:var(--cream)}.end-copy h2{font-size:77.76px;line-height:.92;margin:.18em 0}.final-score{margin:8% auto 4%;width:58%;padding:4% 2%;border-top:1px solid #e9d18c88;border-bottom:1px solid #e9d18c88}.final-score span{display:block;font:700 16.74px Arial,sans-serif;letter-spacing:.22em;color:#e4cc80}.final-score strong{font-size:92px;font-weight:400;line-height:1}.end-copy>p:last-child{font-size:20.52px;color:#f4ead0c9;max-width:78%;margin:0 auto;line-height:1.35}.end-product{position:absolute;left:31%;right:31%;top:54%;height:22%;display:flex;justify-content:center;align-items:center}.end-qrcode{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 18px 26px rgba(0,18,10,.45));user-select:none;pointer-events:none}.end-screen .primary-button{}.fragrance-name{position:absolute;left:0;right:0;bottom:4%;text-align:center;color:#e8d18b;font:700 11.34px Arial,sans-serif;letter-spacing:.2em}
+
+/* Tela final com o mesmo fundo estático utilizado no gameplay. */
+#endScreen{
+  z-index:40;
+  background:#0b3c1b url('assets/game/fundo-game.png') center/cover no-repeat;
+  isolation:isolate;
+}
+#endScreen::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(180deg,rgba(13,43,30,.14),rgba(7,28,20,.28));
+  pointer-events:none;
+}
+#endScreen .brand-lockup,
+#endScreen .end-copy,
+#endScreen .end-product,
+#endScreen .primary-button,
+#endScreen .fragrance-name{
+  z-index:2;
+}
+
+/* O palco utiliza dimensões internas fixas de 1080x1920.
+   O JavaScript redimensiona o palco inteiro proporcionalmente; fontes e
+   espaçamentos nunca recalculam de forma independente pelo viewport. */
+
+
+/* granado-v5: as camadas botânicas decorativas permanecem atrás do canvas,
+   do perfume e de toda a interface, evitando encobrir elementos jogáveis. */
+#gardenBack{z-index:3}
+#gardenMid{z-index:9}
+#gardenFront{z-index:10}
+#gameCanvas{z-index:12}
+#gameScreen{z-index:20}
+#gameScreen .hud,#gameScreen .progress-wrap,#gameScreen .combo-message{z-index:25}
+
+/* granado-v8: perfume oficial na tela inicial */
+.start-perfume{position:relative;z-index:2;display:block;width:auto;height:92%;max-width:92%;object-fit:contain;filter:drop-shadow(0 25px 26px rgba(0,18,10,.58));user-select:none;pointer-events:none}
+#startScreen{background:transparent}
+
+
+/* granado-v9: nova composição da tela inicial */
+#stage.is-start .flower{display:none}
+.hero-copy-image{top:15.2%;left:0;right:0;height:15.1%;display:flex;align-items:flex-start;justify-content:center;pointer-events:none}
+.start-title-art{display:block;width:100%;height:100%;object-fit:contain;user-select:none;pointer-events:none}
+.start-image-button{left:10.7%;right:10.7%;bottom:7.1%;height:auto;aspect-ratio:848/258;padding:0;border:0;background:transparent;box-shadow:none;overflow:visible;border-radius:0}
+.start-image-button img{display:block;width:100%;height:100%;object-fit:contain;user-select:none;pointer-events:none}
+.start-image-button:active{transform:scale(.985)}
+#startScreen .instruction{bottom:3.35%;font-size:18px;letter-spacing:.11em;color:#f8efd0d9}
+
+/* granado-v10: garante ausência total de bolinhas/flores brancas na abertura */
+#startScreen~* .flower, #stage.is-start .flower, #startScreen .flower{display:none!important}
+
+
+/* granado-v12: botão final substituído pela arte fornecida */
+#endScreen .end-image-button{
+  left:10.7%;
+  right:10.7%;
+  bottom:7.1%;
+  height:auto;
+  aspect-ratio:848/258;
+  padding:0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+  border-radius:0;
+  overflow:visible;
+}
+#endScreen .end-image-button img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  user-select:none;
+  pointer-events:none;
+}
+#endScreen .end-image-button:active{transform:scale(.985)}
+
+
+/* granado-v13: retorno à abertura e assinatura final ampliada */
+#endScreen .fragrance-name{font-size:18px;bottom:3.6%;letter-spacing:.22em}
